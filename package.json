@@ -1,0 +1,23 @@
+{
+  "name": "dsa-questions",
+  "version": "1.0.0",
+  "description": "JS practice questions",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssutar/dsa-questions.git"
+  },
+  "author": "ssutar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ssutar/dsa-questions/issues"
+  },
+  "homepage": "https://github.com/ssutar/dsa-questions#readme",
+  "devDependencies": {
+    "prettier": "3.3.3"
+  }
+}
