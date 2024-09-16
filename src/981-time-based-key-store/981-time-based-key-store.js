@@ -26,50 +26,50 @@ timeMap.get("foo", 4);         // return "bar2"
 timeMap.get("foo", 5);         // return "bar2"
  */
 
-var TimeMap = function () {
-  this.map = new Map();
-};
-
-/**
- * @param {string} key
- * @param {string} value
- * @param {number} timestamp
- * @return {void}
- */
-TimeMap.prototype.set = function (key, value, timestamp) {
-  this.map.set(key, (this.map.get(key) || []).concat([timestamp, value]));
-};
-
-/**
- * @param {string} key
- * @param {number} timestamp
- * @return {string}
- */
-TimeMap.prototype.get = function (key, timestamp) {
-  const values = this.map.get(key);
-  if (!values || !values.length) {
-    return '';
+class TimeMap {
+  constructor() {
+    this.map = new Map();
   }
-  let result;
-
-  function find(start, end) {
-    if (start > end) {
-      return;
-    }
-    const mid = Math.floor((start + end) / 2);
-    const [ts, val] = values[mid];
-
-    if (ts <= timestamp) {
-      result = val;
-      find(mid + 1, end);
-    } else {
-      find(start, mid - 1);
-    }
+  /**
+   * @param {string} key
+   * @param {string} value
+   * @param {number} timestamp
+   * @return {void}
+   */
+  set(key, value, timestamp) {
+    this.map.set(key, (this.map.get(key) || []).concat([timestamp, value]));
   }
+  /**
+   * @param {string} key
+   * @param {number} timestamp
+   * @return {string}
+   */
+  get(key, timestamp) {
+    const values = this.map.get(key);
+    if (!values || !values.length) {
+      return '';
+    }
+    let result;
 
-  find(0, values.length);
-  return result;
-};
+    function find(start, end) {
+      if (start > end) {
+        return;
+      }
+      const mid = Math.floor((start + end) / 2);
+      const [ts, val] = values[mid];
+
+      if (ts <= timestamp) {
+        result = val;
+        find(mid + 1, end);
+      } else {
+        find(start, mid - 1);
+      }
+    }
+
+    find(0, values.length);
+    return result;
+  }
+}
 
 /**
  * Your TimeMap object will be instantiated and called as such:

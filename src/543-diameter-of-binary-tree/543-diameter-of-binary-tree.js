@@ -40,16 +40,15 @@ The number of nodes in the tree is in the range [1, 104].
 var diameterOfBinaryTree = function (root) {
   let maxD = 0;
   function traverse(node) {
-    if (!node) {
-      return 0;
-    }
-
-    const leftD = traverse(node.left);
-    const rightD = traverse(node.right);
-    const nodeD = 1 + leftD + rightD;
+    const leftD = node.left ? 1 + traverse(node.left) : 0;
+    const rightD = node.right ? 1 + traverse(node.right) : 0;
+    const nodeD = leftD + rightD;
     maxD = Math.max(nodeD, maxD);
     return Math.max(leftD, rightD);
   }
+
+  traverse(root);
+  return maxD;
 
   traverse(root);
   return maxD;

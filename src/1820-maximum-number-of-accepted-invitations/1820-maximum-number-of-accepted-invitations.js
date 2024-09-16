@@ -15,12 +15,13 @@ function maxAcceptedInvitations(grid) {
   const invitations = [];
   function invite(r, visited = new Map()) {
     for (let c = 0; c < COLS; c++) {
-      if (grid[r][c] === 1 && !visited.has(c)) {
-        visited.set(c, true);
-        if (invitations[c] === undefined || invite(invitations[c], visited)) {
-          invitations[c] = r;
-          return true;
-        }
+      if (grid[r][c] === 0 || visited.has(c)) {
+        continue;
+      }
+      visited.set(c, true);
+      if (invitations[c] === undefined || invite(invitations[c], visited)) {
+        invitations[c] = r;
+        return true;
       }
     }
     return false;

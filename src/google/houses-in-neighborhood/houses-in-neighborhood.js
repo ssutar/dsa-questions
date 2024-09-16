@@ -20,7 +20,7 @@ becomes
 
 function housesInNeighborhood(neighborhoods) {
   const neiLength = neighborhoods.length;
-  const map = new Map();
+  const map = {};
   const capacity = [];
 
   for (let nei of neighborhoods) {
