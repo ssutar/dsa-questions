@@ -28,7 +28,7 @@ class JsonTrie {
       if (Array.isArray(value)) {
         // handle
       } else if (typeof value === 'object') {
-        this.insert(value, version, current);
+        this.insert(value, version, node);
       } else {
         current.isEnd = true;
         current.versions[version] = value;
@@ -38,18 +38,19 @@ class JsonTrie {
 
   read(version, node = this.root) {
     let result = {};
-    function traverse(node) {
+    function traverse(node, result) {
       if (!node) {
         return;
       }
       for (let [key, child] of Object.entries(node.children)) {
-        if (child.versions[version]) {
+        result[key] = {};
+        if (child.isEnd) {
           result[key] = child.versions[version];
         }
-        traverse(child);
+        traverse(child, result[key]);
       }
     }
-    traverse(node);
+    traverse(node, result);
     return result;
   }
 }
@@ -67,7 +68,7 @@ function jsonSerialize() {
   const t = new JsonTrie();
   t.insert(dataV1, 1);
   t.insert(dataV2, 2);
-  // console.log(t);
+  console.log(t.root.children);
   console.log(t.read(1));
   console.log(t.read(2));
 }
